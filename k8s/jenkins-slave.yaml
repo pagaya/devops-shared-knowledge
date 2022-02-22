@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: true
+spec:
+  containers:
+  - name: builder
+    image: < docker builder repo >
+    imagePullPolicy: Always
+    command:
+    - cat
+    tty: true
+    resources:
+      limits:
+        memory: 8Gi
+        cpu: "4"
+      requests:
+        memory: 4Gi
+        cpu: "2"
+    volumeMounts:
+      - name: docker-socket
+        mountPath: /var/run
+  - name: docker-daemon
+    image: docker:19.03.1-dind
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run
+  volumes:
+  - name: docker-socket
+    emptyDir: {}
+  nodeSelector:
+    jenkins-worker: "true"
