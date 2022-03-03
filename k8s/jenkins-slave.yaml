@@ -13,11 +13,14 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 8Gi
-        cpu: "4"
+        memory: 6Gi
+        cpu: "5"
       requests:
         memory: 4Gi
         cpu: "2"
+      limits:
+        memory: 5Gi
+        cpu: "4"
     volumeMounts:
       - name: docker-socket
         mountPath: /var/run
