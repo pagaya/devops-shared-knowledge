@@ -1,0 +1,2 @@
+export CODE_AF_URL="https://aws:$(aws codeartifact get-authorization-token --domain your_org_artifacts --domain-owner codeartifact_account_name --region Your_region --query authorizationToken --output text)@your_org-aws_account.d.codeartifact.account_region.amazonaws.com/pypi/your-org-artifacts/simple/"
+docker build --build-arg PIP_INDEX_URL=$CODE_AF_URL-t s3-ownership-enforce 
